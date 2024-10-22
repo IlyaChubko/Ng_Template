@@ -5,5 +5,6 @@ export const environment = {
 		getList: "../rest/ActivityService/GetActivities?ownerId={0}",
 		getStatuses: "../rest/ActivityService/GetStatuses",
 		addRecord: "../rest/ActivityService/AddActivity",
+		checkRecord: "../rest/ActivityService/CheckRecord",
 	}
 };

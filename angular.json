@@ -130,7 +130,10 @@
 						"styles": [
 							"src/styles.scss"
 						],
-						"scripts": []
+						"scripts": [],
+						"allowedCommonJsDependencies": [
+							"guid-typescript"
+						]
 					},
 					"configurations": {
 						"production": {

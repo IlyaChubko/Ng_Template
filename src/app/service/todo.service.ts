@@ -28,11 +28,19 @@ export class TodoService {
 		return this.http.get<StatusData[]>(url);
 	}
 
-	addRecord(contactId: string, title: string) {
+	addRecord(contactId: string, item: TodoItem) {
 		let headers = (this.Ext) ? new HttpHeaders({"BPMCSRF": this.Ext.util.Cookies.get("BPMCSRF") || ""}) : new HttpHeaders();
 		const body = {
 			ownerId: contactId,
-			title: title
+			data: item
+		}
+		return this.http.post<any>(environment.todoService.addRecord, body, {headers: headers});
+	}
+
+	checkRecord(recordId: string) {
+		let headers = (this.Ext) ? new HttpHeaders({"BPMCSRF": this.Ext.util.Cookies.get("BPMCSRF") || ""}) : new HttpHeaders();
+		const body = {
+			recordId: recordId
 		}
 		return this.http.post<any>(environment.todoService.addRecord, body, {headers: headers});
 	}

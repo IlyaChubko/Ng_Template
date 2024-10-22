@@ -32,6 +32,6 @@ export class TodoItemComponent {
 	}
 
 	onCheckRecord() {
-
+		this.store.checkRecord(this.todoItem.id);
 	}
 }

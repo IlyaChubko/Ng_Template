@@ -8,7 +8,8 @@ export const environment = {
 	todoService: {
 		getList: "api/getList",
 		getStatuses: "api/getStatuses",
-		addRecord: "api/addRecord"
+		addRecord: "api/addRecord",
+		checkRecord: "api/checkRecord",
 	}
 };
 

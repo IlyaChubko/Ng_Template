@@ -1,7 +1,7 @@
 import {patchState, signalStore, withComputed, withMethods, withState} from "@ngrx/signals";
 import {TodoItem} from "../model/TodoItem";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
-import {forkJoin, mergeMap, pipe, switchMap, tap} from "rxjs";
+import {exhaustMap, forkJoin, mergeMap, pipe, switchMap, tap} from "rxjs";
 import {computed, inject} from "@angular/core";
 import {TodoService} from "../service/todo.service";
 import {StatusData} from "../model/StatusData";
@@ -36,8 +36,14 @@ export const CommonStore = signalStore(
 				patchState(store, { statuses: statuses, todoItems: todoItems, loading: false });
 			})
 		)),
-		addTodoData: rxMethod<string>(pipe(
-
+		addTodoData(item: TodoItem) {
+			patchState(store, { todoItems: [...store.todoItems(), item] });
+		},
+		addTodoDataQuery: rxMethod<TodoItem>(pipe(
+			exhaustMap((item) => todoService.addRecord(store._contactId(), item)),
+		)),
+		checkRecord: rxMethod<string>(pipe(
+			exhaustMap((recordId) => todoService.checkRecord(recordId)),
 		)),
 		selectRecord(value: string) {
 			patchState(store, { selectedId: value });

@@ -1,10 +1,12 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {InMemoryDbService} from "angular-in-memory-web-api";
 import {TodoItem} from "./model/TodoItem";
 import {Guid} from "guid-typescript";
+import {CommonStore} from "./ngrx/CommonStore";
 
 @Injectable({providedIn: 'root'})
 export class InMemoryDataService implements InMemoryDbService {
+
 
 	createDb() {
 		let getList = <TodoItem[]>[
@@ -61,7 +63,9 @@ export class InMemoryDataService implements InMemoryDbService {
 				"isFinal": true
 			}
 		];
-		return {getList, getStatuses};
+		const addRecord = ["addRecord"];
+		const checkRecord = ["checkRecord"];
+		return {getList, getStatuses, addRecord, checkRecord};
 
 	}
 

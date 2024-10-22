@@ -1,0 +1,37 @@
+include:
+    - project: 'Croc/gitlabtemplates'
+      file: 'templates3.yml'
+      ref: 'main'
+ 
+stages:
+    - pre
+    - build
+    - deploy
+
+build_ng_job:
+    extends: 
+        - .npm_build
+    stage: pre
+    resource_group: pre
+    variables:
+        CONFIGURATION: "staging"
+
+build_job:
+    variables:
+        IMAGE_VERSION: "1.0"
+    extends: 
+        - .docker_image_build
+    stage: build
+    resource_group: build
+    dependencies:
+        - build_ng_job
+
+deploy_job:
+    variables:
+        IMAGE_VERSION: "1.0"
+    extends: 
+        - .k8s_ng_deploy
+    stage: deploy
+    resource_group: deploy
+    dependencies:
+        - build_job

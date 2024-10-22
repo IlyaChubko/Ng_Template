@@ -1,2 +1,2 @@
-# Ng_Template
+# NgTemplate
 Шаблон Angular приложения

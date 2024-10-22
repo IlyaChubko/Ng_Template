@@ -1,0 +1,8 @@
+<div class="flex flex-column gap-3 p-4">
+	<p class="text-base p-0 m-0">Список задач</p>
+	<div class="flex gap-2">
+		<input [(ngModel)]="newItemValue" class="w-18rem p-0 m-0" pInputText type="text"/>
+		<p-button [disabled]="!newItemValue" class="font-normal" label="Добавить" (click)="onAddRecord()"/>
+	</div>
+	<app-todo-list/>
+</div>

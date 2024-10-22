@@ -1,5 +1,12 @@
+@if(!environment.production) {
+	<div class="fixed right-0 bottom-0 p-2 z-4">
+		<div class="align-items-center gap-2 px-2 py-1 select-none surface-100 border-1 border-round-md border-400 text-900" >Developed by Ilya Chubko</div>
+	</div>
+}
 <div class="flex gap-2">
 	<app-todo-content class="w-full"/>
-	<p-divider layout="vertical"/>
-	<app-todo-property class="w-full"/>
+	<p-divider class="py-4" layout="vertical"/>
+	@if(store.selectedId()) {
+		<app-todo-property [recordId]="store.selectedId()" class="w-full"/>
+	}
 </div>

@@ -3,13 +3,15 @@ import {InMemoryDbService} from "angular-in-memory-web-api";
 import {TodoItem} from "./model/TodoItem";
 import {Guid} from "guid-typescript";
 import {CommonStore} from "./ngrx/CommonStore";
+import {TodoItemFull} from "./model/TodoItemFull";
+import {StatusData} from "./model/StatusData";
 
 @Injectable({providedIn: 'root'})
 export class InMemoryDataService implements InMemoryDbService {
 
 
 	createDb() {
-		let getList = <TodoItem[]>[
+		const getRecords = <TodoItem[]>[
 			{
 				"id": Guid.create().toString(),
 				"title": "Создание проекта",
@@ -41,7 +43,7 @@ export class InMemoryDataService implements InMemoryDbService {
 				"statusId": "201cfba8-58e6-df11-971b-001d60e938c6"
 			}
 		]
-		let getStatuses = [
+		let getStatuses: StatusData[] = [
 			{
 				"id": "201cfba8-58e6-df11-971b-001d60e938c6",
 				"name": "Отменена",
@@ -63,9 +65,18 @@ export class InMemoryDataService implements InMemoryDbService {
 				"isFinal": true
 			}
 		];
+		const getRecord: TodoItemFull = {
+			id: Guid.create().toString(),
+			title: "Подписать приказ",
+			startDate: "28.09.2024",
+			endDate: "29.09.2024",
+			statusId: "201cfba8-58e6-df11-971b-001d60e938c6",
+			author: "Supervisor",
+			category: "Выполнить"
+		}
 		const addRecord = ["addRecord"];
 		const checkRecord = ["checkRecord"];
-		return {getList, getStatuses, addRecord, checkRecord};
+		return {getRecord, getRecords, getStatuses, addRecord, checkRecord};
 
 	}
 

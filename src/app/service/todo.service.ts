@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {TodoItem} from "../model/TodoItem";
 import {StatusData} from "../model/StatusData";
+import {TodoItemFull} from "../model/TodoItemFull";
 
 @Injectable({providedIn: 'root'})
 export class TodoService {
@@ -18,9 +19,14 @@ export class TodoService {
 		return str;
 	}
 
-	getList(contactId: string): Observable<TodoItem[]> {
-		const url = this.formatString(environment.todoService.getList, contactId);
+	getRecords(contactId: string): Observable<TodoItem[]> {
+		const url = this.formatString(environment.todoService.getRecords, contactId);
 		return this.http.get<TodoItem[]>(url);
+	}
+
+	getRecord(recordId: string): Observable<TodoItemFull> {
+		const url = this.formatString(environment.todoService.getRecord, recordId);
+		return this.http.get<TodoItemFull>(url);
 	}
 
 	getStatuses(): Observable<StatusData[]> {
@@ -31,7 +37,7 @@ export class TodoService {
 	addRecord(contactId: string, item: TodoItem) {
 		let headers = (this.Ext) ? new HttpHeaders({"BPMCSRF": this.Ext.util.Cookies.get("BPMCSRF") || ""}) : new HttpHeaders();
 		const body = {
-			ownerId: contactId,
+			contactId: contactId,
 			data: item
 		}
 		return this.http.post<any>(environment.todoService.addRecord, body, {headers: headers});
@@ -40,9 +46,9 @@ export class TodoService {
 	checkRecord(recordId: string) {
 		let headers = (this.Ext) ? new HttpHeaders({"BPMCSRF": this.Ext.util.Cookies.get("BPMCSRF") || ""}) : new HttpHeaders();
 		const body = {
-			recordId: recordId
+			activityId: recordId
 		}
-		return this.http.post<any>(environment.todoService.addRecord, body, {headers: headers});
+		return this.http.post<any>(environment.todoService.checkRecord, body, {headers: headers});
 	}
 
 }

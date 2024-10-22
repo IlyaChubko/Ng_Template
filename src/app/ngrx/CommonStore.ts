@@ -30,7 +30,7 @@ export const CommonStore = signalStore(
 		loadTodoData: rxMethod<void>(pipe(
 			tap(() => { patchState(store, { loading: true })}),
 			mergeMap(() => {
-				return forkJoin([todoService.getStatuses(), todoService.getList(store._contactId())]);
+				return forkJoin([todoService.getStatuses(), todoService.getRecords(store._contactId())]);
 			}),
 			tap(([statuses, todoItems]) => {
 				patchState(store, { statuses: statuses, todoItems: todoItems, loading: false });

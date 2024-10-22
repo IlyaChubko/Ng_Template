@@ -1,4 +1,4 @@
-<div class="flex gap-3 border-bottom-1 border-gray-400 align-content-center p-2 cursor-pointer hover:bg-gray-50" (click)="onSelectRecord()"
+<div class="flex gap-3 border-bottom-1 border-gray-400 align-content-center p-2 cursor-pointer hover:bg-gray-100" (click)="onSelectRecord()"
 	[class.bg-gray-200]="todoItem.id === store.selectedId()"
 >
 	<p-checkbox
@@ -8,7 +8,7 @@
 	<div class="flex flex-column gap-1">
 		<p class="p-0 m-0 text-sm" [class.line-through]="store.checkList() | isChecked : todoItem.id">{{todoItem.title}}</p>
 		<div class="flex gap-2">
-			<p class="w-5rem p-0 m-0 text-xs ">{{todoItem.startDate}}</p>
+			<p class="w-5rem p-0 m-0 text-xs">{{todoItem.startDate}}</p>
 			<p class="w-6rem p-0 m-0 text-xs text-center border-1 border-round-md border-gray-600 px-1"
 			   [style.background-color]="todoItem.statusId | getStatusColor"
 			>{{ store.statuses() | getStatusCaption : todoItem.statusId}}</p>

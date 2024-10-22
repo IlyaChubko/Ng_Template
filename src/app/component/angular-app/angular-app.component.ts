@@ -6,6 +6,8 @@ import {DividerModule} from "primeng/divider";
 import {TodoContentComponent} from "./todo-content/todo-content.component";
 import {TodoPropertyComponent} from "./todo-property/todo-property.component";
 import {CommonStore} from "../../ngrx/CommonStore";
+import {TodoItemFull} from "../../model/TodoItemFull";
+import {environment} from "../../../environments/environment";
 
 @Component({
 	selector: 'angular-app',
@@ -40,4 +42,6 @@ export class AngularAppComponent implements OnInit {
 		this.store.saveContact(this.contactId);
 		this.store.loadTodoData();
 	}
+
+	protected readonly environment = environment;
 }

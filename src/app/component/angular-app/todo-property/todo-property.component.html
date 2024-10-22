@@ -1,1 +1,22 @@
-<p>todo-property works!</p>
+<div class="flex flex-column gap-3 p-4">
+	<p class="text-base p-0 m-0 border-bottom-1 border-gray-400">Информация о задаче</p>
+	@let todoItem = todoItem$ | async;
+	<div class="flex flex-column gap-2">
+	@if (todoItem) {
+		<app-property-item caption="Заголовок" [value]="todoItem.title"/>
+		<app-property-item caption="Дата начала" [value]="todoItem.startDate"/>
+		<app-property-item caption="Дата окончания" [value]="todoItem.endDate"/>
+		<app-property-item caption="Автор" [value]="todoItem.author"/>
+		<app-property-item caption="Статус" [value]="store.statuses() | getStatusCaption : todoItem.statusId"/>
+		<app-property-item caption="Категория" [value]="todoItem.category"/>
+	}
+	@else {
+		<p-skeleton styleClass="w-30rem h-1rem py-1" />
+		<p-skeleton styleClass="w-23rem h-2rem py-1" />
+		<p-skeleton styleClass="w-16rem h-1rem py-1" />
+		<p-skeleton styleClass="w-25rem h-2rem py-1" />
+		<p-skeleton styleClass="w-15rem h-1rem py-1" />
+		<p-skeleton styleClass="w-12rem h-2rem py-1" />
+	}
+	</div>
+</div>

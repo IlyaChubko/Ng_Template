@@ -6,7 +6,8 @@ export const environment = {
 	production: false,
 	assert: "../assets",
 	todoService: {
-		getList: "api/getList",
+		getRecord: "api/getRecord",
+		getRecords: "api/getRecords",
 		getStatuses: "api/getStatuses",
 		addRecord: "api/addRecord",
 		checkRecord: "api/checkRecord",

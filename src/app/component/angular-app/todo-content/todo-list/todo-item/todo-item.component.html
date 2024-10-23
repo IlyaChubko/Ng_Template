@@ -3,7 +3,7 @@
 >
 	<p-checkbox
 		[ngModel]="store.checkList() | isChecked : todoItem.id" [binary]="true"
-		(ngModelChange)="onCheckRecord()"
+		(ngModelChange)="onCheckRecord($event)"
 		inputId="binary" />
 	<div class="flex flex-column gap-1">
 		<p class="p-0 m-0 text-sm" [class.line-through]="store.checkList() | isChecked : todoItem.id">{{todoItem.title}}</p>

@@ -3,6 +3,7 @@ import {createCustomElement} from '@angular/elements';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularAppComponent} from "./component/angular-app/angular-app.component";
+import {provideHttpClient} from "@angular/common/http";
 
 @NgModule({
 	imports: [
@@ -10,7 +11,9 @@ import {AngularAppComponent} from "./component/angular-app/angular-app.component
 		AngularAppComponent,
 		BrowserAnimationsModule
 	],
-	providers: []
+	providers: [
+		provideHttpClient()
+	]
 })
 export class ElementModule implements DoBootstrap {
 
@@ -18,11 +21,11 @@ export class ElementModule implements DoBootstrap {
 	}
 
 	ngDoBootstrap(appRef: ApplicationRef) {
-		if (!customElements.get('ng-template')) {
+		if (!customElements.get('ng-todo')) {
 			const elementComponent = createCustomElement(AngularAppComponent, {
 				injector: this.injector,    // This injector is used to load the component's factory
 			});
-			customElements.define('ng-template', elementComponent);
+			customElements.define('ng-todo', elementComponent);
 		}
 	}
 }

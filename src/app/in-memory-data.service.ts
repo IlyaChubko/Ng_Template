@@ -11,9 +11,10 @@ export class InMemoryDataService implements InMemoryDbService {
 
 
 	createDb() {
+		let recordId = Guid.create().toString();
 		const getRecords = <TodoItem[]>[
 			{
-				"id": Guid.create().toString(),
+				"id": recordId,
 				"title": "Создание проекта",
 				"startDate": "01.09.2024",
 				"statusId": "394d4b84-58e6-df11-971b-001d60e938c6"
@@ -66,11 +67,11 @@ export class InMemoryDataService implements InMemoryDbService {
 			}
 		];
 		const getRecord: TodoItemFull = {
-			id: Guid.create().toString(),
-			title: "Подписать приказ",
-			startDate: "28.09.2024",
+			id: recordId,
+			title: "Создание проекта",
+			startDate: "01.09.2024",
+			statusId: "394d4b84-58e6-df11-971b-001d60e938c6",
 			endDate: "29.09.2024",
-			statusId: "201cfba8-58e6-df11-971b-001d60e938c6",
 			author: "Supervisor",
 			category: "Выполнить"
 		}

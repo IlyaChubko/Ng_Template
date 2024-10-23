@@ -18,7 +18,7 @@
 				"build": {
 					"builder": "ngx-build-plus:build",
 					"options": {
-						"outputPath": "dist/ng-component",
+						"outputPath": "../BPMSoft_NgExample/Files/src/js/ng-todo",
 						"index": "src/index.html",
 						"main": "src/main.element.ts",
 						"tsConfig": "tsconfig.element.json",

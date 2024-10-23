@@ -5,11 +5,11 @@ import {exhaustMap, forkJoin, mergeMap, pipe, switchMap, tap} from "rxjs";
 import {computed, inject} from "@angular/core";
 import {TodoService} from "../service/todo.service";
 import {StatusData} from "../model/StatusData";
+import {withTodoItems} from "./features/TodoListStore";
 
 export type CommonState = {
 	_contactId: string;
 	loading: boolean;
-	todoItems: TodoItem[];
 	statuses: StatusData[];
 	selectedId: string;
 }
@@ -19,10 +19,10 @@ export const CommonStore = signalStore(
 	withState<CommonState>({
 		_contactId: "",
 		loading: false,
-		todoItems: [],
 		statuses: [],
 		selectedId: ""
 	}),
+	withTodoItems(),
 	withMethods((store, todoService = inject(TodoService)) => ({
 		saveContact(id: string) {
 			patchState(store, { _contactId: id });
@@ -33,17 +33,12 @@ export const CommonStore = signalStore(
 				return forkJoin([todoService.getStatuses(), todoService.getRecords(store._contactId())]);
 			}),
 			tap(([statuses, todoItems]) => {
-				patchState(store, { statuses: statuses, todoItems: todoItems, loading: false });
+				patchState(store, { statuses: statuses, loading: false });
+				store.setTodoData(todoItems);
 			})
 		)),
-		addTodoData(item: TodoItem) {
-			patchState(store, { todoItems: [...store.todoItems(), item] });
-		},
-		addTodoDataQuery: rxMethod<TodoItem>(pipe(
+		addTodoItemQuery: rxMethod<TodoItem>(pipe(
 			exhaustMap((item) => todoService.addRecord(store._contactId(), item)),
-		)),
-		checkRecord: rxMethod<string>(pipe(
-			exhaustMap((recordId) => todoService.checkRecord(recordId)),
 		)),
 		selectRecord(value: string) {
 			patchState(store, { selectedId: value });

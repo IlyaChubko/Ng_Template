@@ -7,6 +7,8 @@ import {CommonStore} from "../../../../../ngrx/CommonStore";
 import {Button} from "primeng/button";
 import {GetStatusCaptionPipe} from "../../../../../pipes/get-status-caption.pipe";
 import {GetStatusColorPipe} from "../../../../../pipes/get-status-color.pipe";
+import {TodoService} from "../../../../../service/todo.service";
+import {switchMap, take, tap} from "rxjs";
 
 @Component({
 	selector: 'app-todo-item',
@@ -26,12 +28,20 @@ import {GetStatusColorPipe} from "../../../../../pipes/get-status-color.pipe";
 export class TodoItemComponent {
 	@Input() todoItem: TodoItem;
 	readonly store = inject(CommonStore);
+	todoService = inject(TodoService)
 
 	onSelectRecord() {
 		this.store.selectRecord(this.todoItem.id);
 	}
 
-	onCheckRecord() {
-		this.store.checkRecord(this.todoItem.id);
+	onCheckRecord(checked: any) {
+		this.todoService.checkRecord(this.todoItem.id, checked).pipe(
+			take(1),
+			switchMap(_ => this.todoService.getRecord(this.todoItem.id).pipe(take(1))),
+			tap((value) => {
+				this.store.setTodoItem(value);
+				this.todoService.todoListChanged$.next();
+			}),
+		).subscribe();
 	}
 }

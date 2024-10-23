@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	inject,
+	Input, OnDestroy,
+	OnInit,
+	Output,
+	ViewEncapsulation
+} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ImageUrlPipe} from "../../pipes/image-url.pipe";
@@ -8,6 +17,8 @@ import {TodoPropertyComponent} from "./todo-property/todo-property.component";
 import {CommonStore} from "../../ngrx/CommonStore";
 import {TodoItemFull} from "../../model/TodoItemFull";
 import {environment} from "../../../environments/environment";
+import {TodoService} from "../../service/todo.service";
+import {debounceTime, Subscription} from "rxjs";
 
 @Component({
 	selector: 'angular-app',
@@ -34,14 +45,31 @@ import {environment} from "../../../environments/environment";
 	standalone: true
 })
 
-export class AngularAppComponent implements OnInit {
+export class AngularAppComponent implements OnInit, OnDestroy {
+
 	@Input("contactId") contactId!: string;
+	@Input() sandbox!: any;
+	@Output() TodoListChanged = new EventEmitter<any>();
+
+	todoService = inject(TodoService)
 	readonly store = inject(CommonStore);
+	todoListChangedSub: Subscription;
+	protected readonly environment = environment;
 
 	ngOnInit(): void {
 		this.store.saveContact(this.contactId);
 		this.store.loadTodoData();
+		this.todoListChangedSub = this.todoService.todoListChanged$.pipe(
+			debounceTime(400)
+		).subscribe(() => this.TodoListChanged.emit());
+		if (this.sandbox) this.sandbox.subscribe("OnChangeDashboardTab", () => {
+			this.store.loadTodoData();
+		}, this, [this.sandbox.id]);
 	}
 
-	protected readonly environment = environment;
+	ngOnDestroy(): void {
+		this.todoListChangedSub.unsubscribe();
+	}
+
+
 }

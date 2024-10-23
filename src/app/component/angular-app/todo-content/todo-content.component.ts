@@ -32,8 +32,8 @@ export class TodoContentComponent {
 			startDate: formatDate(Date.now(),'dd.MM.yyyy','en-US'),
 			statusId: "384d4b84-58e6-df11-971b-001d60e938c6"
 		}
-		this.store.addTodoDataQuery(item);
-		this.store.addTodoData(item);
+		this.store.addTodoItemQuery(item);
+		this.store.addTodoItem(item);
 		this.newItemValue = "";
 	}
 }

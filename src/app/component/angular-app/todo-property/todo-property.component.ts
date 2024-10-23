@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -30,14 +30,16 @@ import {CommonStore} from "../../../ngrx/CommonStore";
 	styleUrl: './todo-property.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoPropertyComponent implements OnInit {
-
+export class TodoPropertyComponent implements OnChanges {
 	@Input() recordId: string;
 	readonly store = inject(CommonStore);
 	todoService = inject(TodoService)
 	todoItem$: Observable<TodoItemFull>
 
-	ngOnInit(): void {
-		this.todoItem$ = this.todoService.getRecord(this.recordId);
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes["recordId"]) {
+			this.todoItem$ = this.todoService.getRecord(this.recordId);
+		}
 	}
+
 }

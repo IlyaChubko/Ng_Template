@@ -5,6 +5,7 @@ import {Button} from "primeng/button";
 import {CommonStore} from "../../../../ngrx/CommonStore";
 import {TodoItemComponent} from "./todo-item/todo-item.component";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {ImageUrlPipe} from "../../../../pipes/image-url.pipe";
 
 @Component({
 	selector: 'app-todo-list',
@@ -14,7 +15,8 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
 		InputTextModule,
 		Button,
 		TodoItemComponent,
-		ProgressSpinnerModule
+		ProgressSpinnerModule,
+		ImageUrlPipe
 	],
 	templateUrl: './todo-list.component.html',
 	styleUrl: './todo-list.component.scss',

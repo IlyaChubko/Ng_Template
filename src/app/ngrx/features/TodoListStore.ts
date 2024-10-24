@@ -1,5 +1,5 @@
 import {patchState, signalStoreFeature, type, withComputed, withMethods} from "@ngrx/signals";
-import {addEntity, setEntities, setEntity, updateEntity, withEntities} from "@ngrx/signals/entities";
+import {addEntity, setAllEntities, setEntity, withEntities} from "@ngrx/signals/entities";
 import {TodoItem} from "../../model/TodoItem";
 
 export function withTodoItems() {
@@ -10,7 +10,7 @@ export function withTodoItems() {
 		}),
 		withMethods((store) => ({
 			setTodoData(items: TodoItem[]): void {
-				patchState(store, setEntities(items, { collection: 'todo' }));
+				patchState(store, setAllEntities(items, { collection: 'todo' }));
 			},
 			addTodoItem(item: TodoItem): void {
 				patchState(store, addEntity(item, { collection: 'todo' }));

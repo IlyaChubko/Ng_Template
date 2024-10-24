@@ -15,7 +15,6 @@ import {DividerModule} from "primeng/divider";
 import {TodoContentComponent} from "./todo-content/todo-content.component";
 import {TodoPropertyComponent} from "./todo-property/todo-property.component";
 import {CommonStore} from "../../ngrx/CommonStore";
-import {TodoItemFull} from "../../model/TodoItemFull";
 import {environment} from "../../../environments/environment";
 import {TodoService} from "../../service/todo.service";
 import {debounceTime, Subscription} from "rxjs";
@@ -62,14 +61,13 @@ export class AngularAppComponent implements OnInit, OnDestroy {
 		this.todoListChangedSub = this.todoService.todoListChanged$.pipe(
 			debounceTime(400)
 		).subscribe(() => this.TodoListChanged.emit());
-		if (this.sandbox) this.sandbox.subscribe("OnChangeDashboardTab", () => {
-			this.store.loadTodoData();
-		}, this, [this.sandbox.id]);
+		if (this.sandbox) {
+			this.sandbox.subscribe("OnReloadTodoData", () => this.store.loadTodoData(), this, [this.sandbox.id]);
+		}
 	}
 
 	ngOnDestroy(): void {
 		this.todoListChangedSub.unsubscribe();
 	}
-
 
 }

@@ -1,8 +1,7 @@
-import {inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {InMemoryDbService} from "angular-in-memory-web-api";
 import {TodoItem} from "./model/TodoItem";
 import {Guid} from "guid-typescript";
-import {CommonStore} from "./ngrx/CommonStore";
 import {TodoItemFull} from "./model/TodoItemFull";
 import {StatusData} from "./model/StatusData";
 

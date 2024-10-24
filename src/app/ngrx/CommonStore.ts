@@ -1,11 +1,12 @@
 import {patchState, signalStore, withComputed, withMethods, withState} from "@ngrx/signals";
 import {TodoItem} from "../model/TodoItem";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
-import {exhaustMap, forkJoin, mergeMap, pipe, switchMap, tap} from "rxjs";
+import {exhaustMap, forkJoin, mergeMap, pipe, tap} from "rxjs";
 import {computed, inject} from "@angular/core";
 import {TodoService} from "../service/todo.service";
 import {StatusData} from "../model/StatusData";
 import {withTodoItems} from "./features/TodoListStore";
+import {tapResponse} from "@ngrx/operators";
 
 export type CommonState = {
 	_contactId: string;
@@ -38,7 +39,15 @@ export const CommonStore = signalStore(
 			})
 		)),
 		addTodoItemQuery: rxMethod<TodoItem>(pipe(
-			exhaustMap((item) => todoService.addRecord(store._contactId(), item)),
+			exhaustMap((item) => todoService.addRecord(store._contactId(), item).pipe(
+				tapResponse({
+					next: () => {
+						store.addTodoItem(item);
+					},
+					error: () => {},
+					finalize: () => {}
+				}),
+			))
 		)),
 		selectRecord(value: string) {
 			patchState(store, { selectedId: value });

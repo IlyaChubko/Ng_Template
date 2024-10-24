@@ -35,7 +35,7 @@ export class TodoContentComponent {
 			statusId: "384d4b84-58e6-df11-971b-001d60e938c6"
 		}
 		this.store.addTodoItemQuery(item);
-		this.store.addTodoItem(item);
+		//this.store.addTodoItem(item);
 		this.newItemValue = "";
 	}
 }

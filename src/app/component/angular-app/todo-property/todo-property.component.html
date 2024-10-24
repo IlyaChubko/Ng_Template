@@ -1,5 +1,8 @@
 <div class="flex flex-column gap-3 p-4">
-	<p class="text-base p-0 m-0 border-bottom-1 border-gray-400">Информация о задаче</p>
+	<div class="flex gap-2">
+		<img [src]="'info.svg' | imageUrl" alt="image" height="20" width="20"/>
+		<p class="text-base p-0 m-0 border-bottom-1 border-gray-400">Информация о задаче</p>
+	</div>
 	@let todoItem = todoItem$ | async;
 	<div class="flex flex-column gap-2">
 	@if (todoItem) {

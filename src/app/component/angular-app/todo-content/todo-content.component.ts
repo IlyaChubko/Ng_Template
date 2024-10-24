@@ -7,6 +7,7 @@ import {CommonStore} from "../../../ngrx/CommonStore";
 import {TodoItem} from "../../../model/TodoItem";
 import {Guid} from "guid-typescript";
 import {formatDate} from "@angular/common";
+import {ImageUrlPipe} from "../../../pipes/image-url.pipe";
 
 @Component({
 	selector: 'app-todo-content',
@@ -15,7 +16,8 @@ import {formatDate} from "@angular/common";
 		Button,
 		InputTextModule,
 		PaginatorModule,
-		TodoListComponent
+		TodoListComponent,
+		ImageUrlPipe
 	],
 	templateUrl: './todo-content.component.html',
 	styleUrl: './todo-content.component.scss',

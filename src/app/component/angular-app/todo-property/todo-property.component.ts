@@ -12,6 +12,7 @@ import {AsyncPipe} from "@angular/common";
 import {SkeletonModule} from "primeng/skeleton";
 import {GetStatusCaptionPipe} from "../../../pipes/get-status-caption.pipe";
 import {CommonStore} from "../../../ngrx/CommonStore";
+import {ImageUrlPipe} from "../../../pipes/image-url.pipe";
 
 @Component({
 	selector: 'app-todo-property',
@@ -24,7 +25,8 @@ import {CommonStore} from "../../../ngrx/CommonStore";
 		PropertyItemComponent,
 		AsyncPipe,
 		SkeletonModule,
-		GetStatusCaptionPipe
+		GetStatusCaptionPipe,
+		ImageUrlPipe
 	],
 	templateUrl: './todo-property.component.html',
 	styleUrl: './todo-property.component.scss',

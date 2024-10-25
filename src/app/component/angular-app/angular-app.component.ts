@@ -48,7 +48,7 @@ export class AngularAppComponent implements OnInit, OnDestroy {
 
 	@Input("contactId") contactId!: string;
 	@Input() sandbox!: any;
-	@Output() TodoListChanged = new EventEmitter<any>();
+	@Output() TodoListChanged = new EventEmitter<void>();
 
 	todoService = inject(TodoService)
 	readonly store = inject(CommonStore);

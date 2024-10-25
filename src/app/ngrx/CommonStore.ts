@@ -43,6 +43,7 @@ export const CommonStore = signalStore(
 				tapResponse({
 					next: () => {
 						store.addTodoItem(item);
+						todoService.todoListChanged$.next();
 					},
 					error: () => {},
 					finalize: () => {}
